@@ -10,7 +10,7 @@ namespace LibrarySystem
 
         static void Main(string[] args)
         {
-            
+
         }
     }
 }

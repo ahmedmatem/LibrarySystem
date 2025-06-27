@@ -37,6 +37,19 @@ namespace LibrarySystem.Data
             return false;
         }
 
+        public bool ReturnBook(string isbn)
+        {
+            Book? bookToReturn = Books.Find(b => b.ISBN == isbn);
+            if (bookToReturn != null && !bookToReturn.IsAvailable)
+            {
+                bookToReturn.IsAvailable = true;
+                bookToReturn.Borrower = string.Empty;
+                Save();
+                return true;
+            }
+            return false;
+        }
+
         private void Save()
         {
             using (writer = new StreamWriter(dataPath))
