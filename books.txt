@@ -1,0 +1,1 @@
+[{"ISBN":"1234","Title":"The sin","Author":"Stephan Spilberg","Year":2025,"Price":12.20,"IsAvailable":true,"Borrower":""},{"ISBN":"1234","Title":"The mouse","Author":"Ahmed Matem","Year":2024,"Price":10.20,"IsAvailable":true,"Borrower":""}]

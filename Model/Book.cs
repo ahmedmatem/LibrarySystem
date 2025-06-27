@@ -20,5 +20,10 @@
             IsAvailable = isAvailable;
             Borrower = borrower;
         }
+
+        public override string ToString()
+        {
+            return $"{Title}, {Author} - {Year}";
+        }
     }
 }

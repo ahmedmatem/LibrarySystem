@@ -5,10 +5,15 @@ namespace LibrarySystem.Data
 {
     public class DataContext
     {
-        private const string dataPath = "../../../data.txt";
+        private string dataPath;
 
         private StreamWriter writer;
         private StreamReader reader;
+
+        public DataContext(string _dataPath)
+        {
+            dataPath = _dataPath;
+        }
 
         public List<Book> Books { get; set; }
 
