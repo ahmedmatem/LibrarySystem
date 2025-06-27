@@ -5,6 +5,8 @@ namespace LibrarySystem.Data
 {
     public class DataContext
     {
+        public List<Book> Books { get; private set; }
+
         private string dataPath;
 
         private StreamWriter writer;
@@ -13,25 +15,43 @@ namespace LibrarySystem.Data
         public DataContext(string _dataPath)
         {
             dataPath = _dataPath;
+            LoadBooks();
         }
 
-        public List<Book> Books { get; set; }
-
-        public List<Book> GetAllBooks()
+        public void AddBook(Book book)
         {
-            using(reader = new StreamReader(dataPath))
-            {
-                string data = reader.ReadToEnd();
-                return JsonSerializer.Deserialize<List<Book>>(data)!;
-            }
+            Books.Add(book);
+            Save();
         }
 
-        public void Save(List<Book> books)
+        public bool BorrowBook(string isbn, string borrowerName)
+        {
+            Book? bookToBorrow = Books.Find(b => b.ISBN == isbn);
+            if(bookToBorrow != null && bookToBorrow.IsAvailable)
+            {
+                bookToBorrow.IsAvailable = false;
+                bookToBorrow.Borrower = borrowerName;
+                Save();
+                return true;
+            }
+            return false;
+        }
+
+        private void Save()
         {
             using (writer = new StreamWriter(dataPath))
             {
-                string data = JsonSerializer.Serialize(books);
+                string data = JsonSerializer.Serialize(Books);
                 writer.Write(data);
+            }
+        }
+
+        private void LoadBooks()
+        {
+            using (reader = new StreamReader(dataPath))
+            {
+                string data = reader.ReadToEnd();
+                Books = JsonSerializer.Deserialize<List<Book>>(data)!;
             }
         }
     }
