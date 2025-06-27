@@ -1,6 +1,6 @@
 ﻿namespace LibrarySystem.Data
 {
-    class DataContext
+    public class DataContext
     {
     }
 }
