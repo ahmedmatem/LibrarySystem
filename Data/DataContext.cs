@@ -37,6 +37,11 @@ namespace LibrarySystem.Data
             return false;
         }
 
+        public List<Book> AllBorrowedBooks()
+        {
+            return Books.Where(b => !b.IsAvailable).ToList();
+        }
+
         public bool ReturnBook(string isbn)
         {
             Book? bookToReturn = Books.Find(b => b.ISBN == isbn);
@@ -66,6 +71,7 @@ namespace LibrarySystem.Data
                 string data = reader.ReadToEnd();
                 Books = JsonSerializer.Deserialize<List<Book>>(data)!;
             }
+            Books ??= new List<Book>();
         }
     }
 }
